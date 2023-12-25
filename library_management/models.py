@@ -18,11 +18,14 @@ class Book(models.Model):
         max_digits=8, decimal_places=2
     )
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Borrowing(models.Model):
     borrow_date = models.DateField()
     expected_return_date = models.DateField()
-    actual_return_date = models.DateField()
+    actual_return_date = models.DateField(blank=True, null=True)
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="borrowing"
     )
@@ -31,6 +34,9 @@ class Borrowing(models.Model):
         on_delete=models.CASCADE,
         related_name="borrowing"
     )
+
+    def __str__(self) -> str:
+        return f"{self.book.title} ({self.borrow_date})"
 
 
 class Payment(models.Model):
@@ -52,3 +58,6 @@ class Payment(models.Model):
     money_to_pay = models.DecimalField(
         max_digits=8, decimal_places=2
     )
+
+    def __str__(self) -> str:
+        return f"{self.borrowing} ({self.status})"
