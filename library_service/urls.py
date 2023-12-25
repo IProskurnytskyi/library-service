@@ -24,7 +24,7 @@ urlpatterns = [
         include("library_management.urls", namespace="library_management")
     ),
     path(
-        "api/user/",
+        "api/users/",
         include("user.urls", namespace="user")
     ),
 ]
