@@ -14,7 +14,9 @@ class Book(models.Model):
         max_length=4, choices=CoverChoices.choices, null=True, blank=True
     )
     inventory = models.PositiveIntegerField()
-    daily_fee = models.DecimalField()
+    daily_fee = models.DecimalField(
+        max_digits=8, decimal_places=2
+    )
 
 
 class Borrowing(models.Model):
@@ -47,4 +49,6 @@ class Payment(models.Model):
     )
     session_url = models.URLField()
     session_id = models.CharField(max_length=255)
-    money_to_pay = models.DecimalField()
+    money_to_pay = models.DecimalField(
+        max_digits=8, decimal_places=2
+    )
