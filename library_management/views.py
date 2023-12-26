@@ -99,13 +99,14 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             OpenApiParameter(
                 name="user_id",
                 type=int,
-                description="Filter borrowings by user ID. Example: ?user_id=1 "
-                            "(only accessible to staff users)",
+                description="Filter borrowings by user ID. Example: ?user_id=1"
+                            " (only accessible to staff users)",
             ),
             OpenApiParameter(
                 name="is_active",
                 type=bool,
-                description="Filter borrowings by active status. Example: ?is_active=true",
+                description="Filter borrowings by active status. "
+                            "Example: ?is_active=true",
             ),
         ],
     )
