@@ -4,6 +4,7 @@ from django.db.models import QuerySet
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from library_management.models import (
     Book,
@@ -28,6 +29,7 @@ class BookViewSet(viewsets.ModelViewSet):
 class BorrowingViewSet(viewsets.ModelViewSet):
     queryset = Borrowing.objects.all()
     serializer_class = BorrowingSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self) -> Type:
         if self.action in ("create", "update", "partial_update"):
@@ -70,10 +72,15 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     def get_queryset(self) -> QuerySet:
-        user_id = self.request.query_params.get("user_id")
+        user_id = ""
+        if self.request.user.is_staff is True:
+            user_id = self.request.query_params.get("user_id")
         is_active = self.request.query_params.get("is_active")
 
         queryset = self.queryset
+
+        if self.request.user.is_staff is False:
+            queryset = queryset.filter(user_id=self.request.user.id)
 
         if user_id:
             queryset = queryset.filter(user_id=int(user_id))
