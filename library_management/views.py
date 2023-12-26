@@ -1,6 +1,7 @@
 from typing import Type
 
 from django.db.models import QuerySet
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -92,6 +93,24 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                 queryset = queryset.filter(actual_return_date__isnull=False)
 
         return queryset
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="user_id",
+                type=int,
+                description="Filter borrowings by user ID. Example: ?user_id=1 "
+                            "(only accessible to staff users)",
+            ),
+            OpenApiParameter(
+                name="is_active",
+                type=bool,
+                description="Filter borrowings by active status. Example: ?is_active=true",
+            ),
+        ],
+    )
+    def list(self, request, *args, **kwargs) -> Response:
+        return super().list(request, *args, **kwargs)
 
     @action(methods=["PUT"], detail=True, url_path="return")
     def return_borrowing(self, request, pk=None) -> Response:
