@@ -9,6 +9,7 @@ from library_management.models import (
     Book,
     Borrowing
 )
+from library_management.permissions import IsAdminOrReadOnly
 from library_management.serializers import (
     BookSerializer,
     BorrowingSerializer,
@@ -21,6 +22,7 @@ from library_management.serializers import (
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
