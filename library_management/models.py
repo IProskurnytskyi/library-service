@@ -27,12 +27,12 @@ class Borrowing(models.Model):
     expected_return_date = models.DateField()
     actual_return_date = models.DateField(blank=True, null=True)
     book = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="borrowing"
+        Book, on_delete=models.CASCADE, related_name="borrowings"
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="borrowing"
+        related_name="borrowings"
     )
 
     def __str__(self) -> str:
@@ -51,7 +51,7 @@ class Payment(models.Model):
     status = models.CharField(max_length=7, choices=StatusChoices.choices)
     type = models.CharField(max_length=7, choices=TypeChoices.choices)
     borrowing = models.ForeignKey(
-        Borrowing, on_delete=models.CASCADE, related_name="payment"
+        Borrowing, on_delete=models.CASCADE, related_name="payments"
     )
     session_url = models.URLField()
     session_id = models.CharField(max_length=255)

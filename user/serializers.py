@@ -13,9 +13,9 @@ class UserSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "is_staff"
+            "is_staff",
         )
-        read_only_fields = ("is_staff",)
+        read_only_fields = ("is_staff", )
         extra_kwargs = {"password": {"write_only": True, "min_length": 5}}
 
     def create(self, validated_data: dict) -> User:
@@ -39,5 +39,5 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
         fields = (
             "email",
             "first_name",
-            "last_name"
+            "last_name",
         )

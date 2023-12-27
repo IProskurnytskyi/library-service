@@ -10,7 +10,7 @@ from user.serializers import UserRetrieveSerializer
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ("id", "title", "author", "cover", "inventory", "daily_fee")
+        fields = ("id", "title", "author", "cover", "inventory", "daily_fee",)
 
 
 class BorrowingSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class BorrowingSerializer(serializers.ModelSerializer):
             "expected_return_date",
             "actual_return_date",
             "book",
-            "user"
+            "user",
         )
 
 
@@ -39,11 +39,11 @@ class BorrowingManageSerializer(serializers.ModelSerializer):
             "id",
             "borrow_date",
             "expected_return_date",
-            "book"
+            "book",
         )
 
 
 class BorrowingReturnSerializer(serializers.ModelSerializer):
     class Meta:
         model = Borrowing
-        fields = ("id", "actual_return_date")
+        fields = ("id", "actual_return_date",)

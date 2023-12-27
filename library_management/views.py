@@ -28,12 +28,12 @@ class BookViewSet(viewsets.ModelViewSet):
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
-    queryset = Borrowing.objects.select_related("book", "user")
+    queryset = Borrowing.objects.select_related("book", "user", )
     serializer_class = BorrowingSerializer
     permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self) -> Type:
-        if self.action in ("create", "update", "partial_update"):
+        if self.action in ("create", "update", "partial_update", ):
             return BorrowingManageSerializer
 
         if self.action == "retrieve":

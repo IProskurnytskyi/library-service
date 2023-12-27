@@ -13,7 +13,7 @@ router.register("borrowings", BorrowingViewSet)
 
 
 urlpatterns = [
-    path("", include(router.urls))
+    path("", include(router.urls)),
 ]
 
 app_name = "library_management"
